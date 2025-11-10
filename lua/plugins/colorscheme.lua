@@ -1,27 +1,22 @@
 return {
-  "catppuccin/nvim",
-  name = "catppuccin",
+  "Mofiqul/vscode.nvim",
+  lazy = false,
   priority = 1000,
-  opts = {
-    flavour = "mocha", -- latte, frappe, macchiato, mocha
-    background = {
-      light = "latte",
-      dark = "mocha",
-    },
-    transparent_background = true,
-    show_end_of_buffer = false,
-    integrations = {
-      cmp = true,
-      gitsigns = true,
-      nvimtree = true,
-      telescope = true,
-      treesitter = true,
-      which_key = true,
-      lsp_trouble = true,
-      mason = true,
-      notify = true,
-      harpoon = true,
-      indent_blankline = { enabled = true, colored_indent_levels = false },
-    },
-  },
+  config = function()
+    -- Set background before loading the colorscheme
+    vim.o.background = 'dark'
+
+    -- Setup the colorscheme with transparency
+    require('vscode').setup({
+      transparent = true,           -- Enable transparency
+      italic_comments = true,       -- Italicize comments
+      italic_inlayhints = false,    -- Don't italicize inlay hints
+      underline_links = true,       -- Add underlines to links
+      disable_nvimtree_bg = true,   -- Disable NvimTree background
+      terminal_colors = true,       -- Set terminal colors
+    })
+
+    -- Load the colorscheme
+    vim.cmd.colorscheme("vscode")
+  end,
 }
