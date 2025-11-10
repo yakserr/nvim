@@ -1,36 +1,19 @@
 return {
   -- Configure LSP servers
   "neovim/nvim-lspconfig",
-
   opts = {
-
-    -- disable inlayhints for global
-    inlay_hints = {
-      enabled = false,
-    },
-    -- Automatically format on save is managed by LazyVim's formatting utility
-    -- We just need to ensure the right servers have formatting capability
     servers = {
-      -- ESLint will handle both linting and formatting
-      eslint = {},
-      -- TypeScript server should NOT have formatting when using ESLint
-      tsserver = {
-        -- This is set in the setup function below
+      -- Disable vtsls (TypeScript) formatting to use ESLint exclusively
+      vtsls = {
+        settings = {
+          typescript = {
+            format = { enable = false },
+          },
+          javascript = {
+            format = { enable = false },
+          },
+        },
       },
-    },
-    setup = {
-      -- Configure ESLint to provide document formatting
-      eslint = function()
-        require("lazyvim.util").lsp.on_attach(function(client)
-          if client.name == "eslint" then
-            -- Enable ESLint's formatting capability
-            client.server_capabilities.documentFormattingProvider = true
-          elseif client.name == "tsserver" then
-            -- Disable TypeScript server formatting to avoid conflicts
-            client.server_capabilities.documentFormattingProvider = false
-          end
-        end)
-      end,
     },
   },
 }
