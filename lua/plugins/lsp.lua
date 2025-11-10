@@ -3,6 +3,11 @@ return {
   "neovim/nvim-lspconfig",
 
   opts = {
+
+    -- disable inlayhints for global
+    inlay_hints = {
+      enabled = false,
+    },
     -- Automatically format on save is managed by LazyVim's formatting utility
     -- We just need to ensure the right servers have formatting capability
     servers = {
