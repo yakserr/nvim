@@ -2,6 +2,10 @@ return {
   -- Configure LSP servers
   "neovim/nvim-lspconfig",
   opts = {
+    -- disable inlay hints for global
+    inlay_hints = {
+      enabled = false,
+    },
     servers = {
       vtsls = {},
     },
