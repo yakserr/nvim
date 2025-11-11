@@ -22,15 +22,16 @@ return {
         auto_trigger = true,
         debounce = 75,
         keymap = {
-          accept = "<Tab>",
+          -- Remove the accept binding to allow custom behavior
+          -- accept = "<Tab>", -- Commented out to allow conditional behavior
           accept_word = false,
           accept_line = false,
           next = "<M-]>",
           prev = "<M-[>",
           dismiss = "<C-]>",
         },
-        -- VSCode-like behavior: accept with Tab
-        -- Trigger happens automatically as you type
+        -- VSCode-like behavior: Tab works normally when no suggestion,
+        -- but accepts suggestion when it appears
       },
       filetypes = {
         yaml = false,
@@ -50,6 +51,24 @@ return {
         svelte = true,
         lua = true,
       },
+    })
+    
+    -- Create custom Tab keymap for VSCode-like behavior
+    -- This will be loaded after copilot setup
+    vim.api.nvim_create_autocmd("InsertEnter", {
+      callback = function()
+        -- Setup conditional Tab behavior in insert mode
+        vim.keymap.set("i", "<Tab>", function()
+          local copilot = require("copilot.suggestion")
+          if copilot.is_visible() then
+            -- If copilot suggestion is visible, accept it
+            copilot.accept()
+          else
+            -- Otherwise, insert normal tab
+            vim.api.nvim_feedkeys(vim.keycode("<Tab>"), "n", false)
+          end
+        end, { silent = true, expr = true })
+      end,
     })
   end,
 }
