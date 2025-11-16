@@ -1,5 +1,12 @@
 return {
   "akinsho/toggleterm.nvim",
+  keys = {
+    { "<leader>ft", function() local term = _G.term1 if term then term:toggle() end end, desc = "Toggle non-persistent terminal (floating)" },
+    { "<leader>fT", function() local term = _G.term2 if term then term:toggle() end end, desc = "Toggle persistent terminal (floating)" },
+    { "<leader>1", function() local term = _G.term1 if term then term:toggle() end end, desc = "Toggle terminal 1" },
+    { "<leader>2", function() local term = _G.term2 if term then term:toggle() end end, desc = "Toggle terminal 2" },
+    { "<leader>3", function() local term = _G.term3 if term then term:toggle() end end, desc = "Toggle terminal 3" },
+  },
   event = "VeryLazy",
   config = function()
     local toggleterm = require("toggleterm")
@@ -59,7 +66,6 @@ return {
       direction = "float",
       close_on_exit = true, -- Non-persistent behavior
       hidden = true,
-      persistent = false,
     })
 
     -- Terminal 2: Persistent (keeps state and history)
@@ -67,7 +73,6 @@ return {
       direction = "float",
       close_on_exit = false, -- Persistent behavior
       hidden = true,
-      persistent = true,
     })
 
     -- Terminal 3: Additional persistent terminal
@@ -75,7 +80,6 @@ return {
       direction = "float",
       close_on_exit = false, -- Persistent behavior
       hidden = true,
-      persistent = true,
     })
 
     -- Keybindings

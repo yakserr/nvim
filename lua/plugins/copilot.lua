@@ -61,12 +61,10 @@ return {
         vim.keymap.set("i", "<Tab>", function()
           local copilot = require("copilot.suggestion")
           if copilot.is_visible() then
-            -- If copilot suggestion is visible, accept it
             copilot.accept()
-          else
-            -- Otherwise, insert normal tab
-            vim.api.nvim_feedkeys(vim.keycode("<Tab>"), "n", false)
+            return ""
           end
+          return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
         end, { silent = true, expr = true })
       end,
     })
