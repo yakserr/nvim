@@ -11,7 +11,7 @@ This is a [LazyVim](https://github.com/LazyVim/LazyVim) configuration for Neovim
 - A complete Neovim IDE configuration optimized for TypeScript, Vue, Tailwind CSS, and web development
 - Integrates ESLint for both linting and formatting
 - Uses vscode colorscheme with transparency
-- Includes Git diff tooling via diffview
+- Includes Git diff tooling via vscode-diff.nvim (VSCode-style diff highlighting)
 
 ## Development Commands & Workflow
 
@@ -28,11 +28,11 @@ This is a [LazyVim](https://github.com/LazyVim/LazyVim) configuration for Neovim
 - **Open diagnostic panel**: `gl` (LazyVim default)
 
 ### Git Operations
-- **Open diff (working tree)**: `<leader>gd` → Opens Diffview
-- **Open diff (last commit)**: `<leader>gD`
-- **Open file history**: `<leader>gs`
-- **Open current file history**: `<leader>go`
-- **Close diffview**: `<leader>gq`
+- **Open diff explorer**: `<leader>gd` → Opens CodeDiff explorer (all changed files)
+- **Diff file vs last commit**: `<leader>gD` → Compare current file with HEAD~1
+- **Git status explorer**: `<leader>gs` → Opens CodeDiff explorer
+- **Diff current file vs HEAD**: `<leader>go`
+- **Close diff tab**: `<leader>gq`
 - **Compare against main**: `<leader>gm`
 
 ### File Explorer
@@ -60,7 +60,7 @@ lua/
     ├── colorscheme.lua  # vscode colorscheme with transparency
     ├── lsp.lua          # ESLint + TypeScript LSP configuration
     ├── neo-tree.lua     # File explorer positioning
-    └── diffview.lua     # Git diff tool keymaps
+    └── diffview.lua     # vscode-diff.nvim configuration
 ```
 
 ### Plugin Manager
@@ -97,9 +97,10 @@ lua/
 - Customization in `lua/plugins/neo-tree.lua:4-8`
 
 ### Git Diff Tool
-- Replaces vim-fugitive with diffview.nvim
-- Keybindings replace standard git diff shortcuts
-- Full configuration in `lua/plugins/diffview.lua:8-27`
+- Uses vscode-diff.nvim for VSCode-style two-tier diff highlighting
+- Light backgrounds for modified lines + deep character-level highlights
+- Keymaps: `]c`/`[c` for hunk navigation, `]f`/`[f` for file navigation
+- Full configuration in `lua/plugins/diffview.lua`
 
 ## Code Style & Formatting
 
@@ -124,7 +125,7 @@ lua/
 | `lazyvim.json` | Lists enabled LazyVim extras |
 | `lua/plugins/lsp.lua` | ESLint + TypeScript server configuration |
 | `lua/plugins/colorscheme.lua` | vscode theme with transparency |
-| `lua/plugins/diffview.lua` | Git diff tool keymaps and setup |
+| `lua/plugins/diffview.lua` | vscode-diff.nvim configuration |
 | `lua/plugins/neo-tree.lua` | File explorer positioning customization |
 | `.stylua.toml` | Lua code formatting rules |
 | `.neoconf.json` | Neovim development tools configuration |
@@ -157,13 +158,14 @@ lua/
 
 ### Git diff not working
 - Ensure you're in a git repository
-- Check diffview keymaps: `:map <leader>g`
-- Try `:DiffviewOpen` directly to test
+- Check diff keymaps: `:map <leader>g`
+- Try `:CodeDiff` directly to test
+- Verify nui.nvim dependency is installed
 
 ## Resources
 
 - [LazyVim Documentation](https://lazyvim.github.io/)
 - [LazyVim GitHub](https://github.com/LazyVim/LazyVim)
 - [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig)
-- [diffview.nvim](https://github.com/sindrets/diffview.nvim)
+- [vscode-diff.nvim](https://github.com/esmuellert/vscode-diff.nvim)
 - [vscode.nvim](https://github.com/Mofiqul/vscode.nvim)
