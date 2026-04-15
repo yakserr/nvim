@@ -7,13 +7,8 @@ return {
       enabled = false,
     },
     servers = {
-      vtsls = {
-        -- Include vue so Volar sees a TS LSP client and avoids warning
-        filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact", "vue" },
-      },
-      volar = {
-        filetypes = { "vue" }, -- keep vtsls off .vue to avoid overlap
-      },
+      vtsls = {},
+      volar = {},
     },
     setup = {
       vtsls = function()

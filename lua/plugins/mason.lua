@@ -13,6 +13,7 @@ return {
       "bash-language-server",
       "shfmt",
       "shellcheck",
+      "prettier",
       "stylua",
       "lua-language-server",
     },
