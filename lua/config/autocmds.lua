@@ -5,30 +5,6 @@ local autocmd = vim.api.nvim_create_autocmd
 local augroup = vim.api.nvim_create_augroup
 
 -- ============================================================================
--- Auto-save
--- ============================================================================
-
--- Auto-save on focus lost or buffer leave (like VSCode)
-autocmd({ "FocusLost", "BufLeave" }, {
-  group = augroup("auto_save", { clear = true }),
-  callback = function(event)
-    local buf = event.buf
-    -- Only save if buffer is modified, has a filename, and is a normal buffer
-    if
-      vim.bo[buf].modified
-      and vim.bo[buf].buftype == ""
-      and vim.fn.bufname(buf) ~= ""
-      and not vim.bo[buf].readonly
-    then
-      vim.api.nvim_buf_call(buf, function()
-        vim.cmd("silent! write")
-      end)
-    end
-  end,
-  desc = "Auto-save on focus lost",
-})
-
--- ============================================================================
 -- Disable diagnostics for Markdown files
 -- ============================================================================
 
@@ -55,3 +31,35 @@ autocmd("FileType", {
   end,
   desc = "Git commit settings",
 })
+
+-- ============================================================================
+-- Transparent floating windows (terminal, lazy, mason, etc.)
+-- ============================================================================
+
+local function clear_float_bg()
+  local groups = {
+    "NormalFloat",
+    "FloatBorder",
+    "FloatTitle",
+    "SnacksNormal",
+    "SnacksNormalNC",
+    "SnacksWinBar",
+    "SnacksWinBarNC",
+    "SnacksBackdrop",
+    "SnacksTerminal",
+    "SnacksTerminalNormal",
+    "SnacksTerminalNormalNC",
+    "SnacksTerminalBorder",
+  }
+  for _, g in ipairs(groups) do
+    vim.api.nvim_set_hl(0, g, { bg = "NONE" })
+  end
+end
+
+autocmd("ColorScheme", {
+  group = augroup("transparent_floats", { clear = true }),
+  callback = clear_float_bg,
+  desc = "Transparent background for floating windows",
+})
+
+clear_float_bg()

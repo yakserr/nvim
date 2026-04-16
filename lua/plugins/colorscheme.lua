@@ -1,22 +1,69 @@
 return {
-  "Mofiqul/vscode.nvim",
+  "catppuccin/nvim",
+  name = "catppuccin",
   lazy = false,
   priority = 1000,
-  config = function()
-    -- Set background before loading the colorscheme
-    vim.o.background = 'dark'
+  opts = {
+    flavour = "mocha",
+    background = { light = "latte", dark = "mocha" },
 
-    -- Setup the colorscheme with transparency
-    require('vscode').setup({
-      transparent = true,           -- Enable transparency
-      italic_comments = true,       -- Italicize comments
-      italic_inlayhints = false,    -- Don't italicize inlay hints
-      underline_links = true,       -- Add underlines to links
-      disable_nvimtree_bg = true,   -- Disable NvimTree background
-      terminal_colors = true,       -- Set terminal colors
-    })
+    transparent_background = true,
+    term_colors = true,
 
-    -- Load the colorscheme
-    vim.cmd.colorscheme("vscode")
+    styles = {
+      comments = { "italic" },
+      conditionals = { "italic" },
+      functions = {},
+      keywords = {},
+      strings = {},
+      variables = {},
+      types = {},
+      operators = {},
+    },
+
+    integrations = {
+      treesitter = true,
+      treesitter_context = true,
+      rainbow_delimiters = true,
+      -- file tree
+      neotree = true,
+      -- git
+      gitsigns = { enabled = true, transparent = true },
+      -- UI / floats
+      snacks = { enabled = true, indent_scope_color = "mauve" },
+      dropbar = { enabled = true, color_mode = true },
+      mason = true,
+      -- indent guides
+      indent_blankline = {
+        enabled = true,
+        scope_color = "mauve",
+        colored_indent_levels = false,
+      },
+    },
+
+    highlight_overrides = {
+      mocha = function(c)
+        return {
+          -- Keep floats transparent (same as your autocmds setup)
+          NormalFloat  = { bg = "NONE" },
+          FloatBorder  = { fg = c.surface1, bg = "NONE" },
+          FloatTitle   = { fg = c.mauve, bg = "NONE" },
+          -- Snacks
+          SnacksNormal           = { bg = "NONE" },
+          SnacksNormalNC         = { bg = "NONE" },
+          SnacksWinBar           = { bg = "NONE" },
+          SnacksWinBarNC         = { bg = "NONE" },
+          SnacksBackdrop         = { bg = "NONE" },
+          SnacksTerminal         = { bg = "NONE" },
+          SnacksTerminalNormal   = { bg = "NONE" },
+          SnacksTerminalNormalNC = { bg = "NONE" },
+          SnacksTerminalBorder   = { bg = "NONE" },
+        }
+      end,
+    },
+  },
+  config = function(_, opts)
+    require("catppuccin").setup(opts)
+    vim.cmd.colorscheme("catppuccin-mocha")
   end,
 }
