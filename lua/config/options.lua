@@ -52,6 +52,19 @@ opt.smartindent = true -- Smart auto-indent
 -- Better completion
 opt.completeopt = "menu,menuone,noselect"
 
+-- ============================================================================
+-- Diff: VSCode-like (cleaner hunks + aggressive line/char alignment)
+-- ============================================================================
+opt.diffopt = {
+  "internal",
+  "filler",
+  "closeoff",
+  "indent-heuristic",
+  "algorithm:histogram", -- smarter than default myers; closer to VSCode
+  "linematch:60", -- align changed lines harder (was 40)
+  "inline:char", -- char-level intra-line highlight
+}
+
 -- Confirm before closing modified buffers
 opt.confirm = true
 
