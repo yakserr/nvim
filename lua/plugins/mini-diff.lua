@@ -8,7 +8,13 @@ return {
     {
       "<leader>go",
       function()
-        require("mini.diff").toggle_overlay(0)
+        local diff = require("mini.diff")
+        -- mini.diff only auto-enables real file buffers; toggle_overlay errors on
+        -- explorer/terminal/dashboard buffers, so bail out with a notice instead.
+        if diff.get_buf_data(0) == nil then
+          return vim.notify("No git diff for this buffer", vim.log.levels.WARN)
+        end
+        diff.toggle_overlay(0)
       end,
       desc = "Diff overlay (VSCode-like)",
     },

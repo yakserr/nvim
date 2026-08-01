@@ -1,30 +1,24 @@
 -- Git enhancement plugins
 return {
-  -- Better diff viewer
+  -- VSCode-style diff viewer (replaces diffview.nvim). Quit a view with `q`,
+  -- toggle side-by-side/inline with `t`, `g?` for the full in-view keymap list.
   {
-    "sindrets/diffview.nvim",
-    cmd = { "DiffviewOpen", "DiffviewClose", "DiffviewFileHistory" },
+    "esmuellert/codediff.nvim",
+    cmd = "CodeDiff",
     keys = {
-      { "<leader>gvo", "<cmd>DiffviewOpen<cr>", desc = "Diff View: Open" },
-      { "<leader>gvc", "<cmd>DiffviewClose<cr>", desc = "Diff View: Close" },
-      { "<leader>gvh", "<cmd>DiffviewFileHistory %<cr>", desc = "Diff: File History" },
-      { "<leader>gvH", "<cmd>DiffviewFileHistory<cr>", desc = "Diff: Repo History" },
+      { "<leader>gvo", "<cmd>CodeDiff<cr>", desc = "Diff View: Open" },
+      { "<leader>gvf", "<cmd>CodeDiff file HEAD<cr>", desc = "Diff: File vs HEAD" },
+      { "<leader>gvh", "<cmd>CodeDiff history HEAD~50 %<cr>", desc = "Diff: File History" },
+      { "<leader>gvH", "<cmd>CodeDiff history<cr>", desc = "Diff: Repo History" },
     },
     opts = {
-      enhanced_diff_hl = true,
-      view = {
-        default = {
-          layout = "diff2_horizontal",
-        },
-        merge_tool = {
-          layout = "diff3_horizontal",
-        },
+      diff = {
+        -- Off by default; this is the one thing diffview couldn't do.
+        compute_moves = true,
       },
-      file_panel = {
-        win_config = {
-          position = "left",
-          width = 35,
-        },
+      explorer = {
+        position = "left",
+        width = 35,
       },
     },
   },

@@ -1,39 +1,22 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   opts = {
+    -- Merged with LazyVim's defaults (opts_extend), so only list what it misses.
+    -- highlight/indent/folds are already enabled by LazyVim.
+    -- Go's Tree-sitter indent needs a complete syntax tree to indent a newly
+    -- opened block. Keep highlighting/folds, but use Neovim's native GoIndent.
+    indent = {
+      disable = { "go" },
+    },
     ensure_installed = {
-      -- Web development
-      "javascript",
-      "typescript",
-      "tsx",
+      "blade",
       "vue",
-      "json",
-      "jsonc",
-      "html",
       "css",
       "scss",
-      -- Config files
-      "yaml",
-      "toml",
       "dockerfile",
-      -- Documentation
-      "markdown",
-      "markdown_inline",
-      -- Scripting
-      "lua",
-      "bash",
-      "regex",
-      -- Git
       "git_config",
       "gitcommit",
       "gitignore",
     },
-    -- Better highlighting
-    highlight = {
-      enable = true,
-      additional_vim_regex_highlighting = false,
-    },
-    -- Better indentation
-    indent = { enable = true },
   },
 }

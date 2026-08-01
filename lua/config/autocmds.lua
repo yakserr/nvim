@@ -18,6 +18,20 @@ autocmd("FileType", {
 })
 
 -- ============================================================================
+-- Auto-show diagnostic float on cursor hold (VSCode-like hover)
+-- ============================================================================
+
+vim.o.updatetime = 500
+
+autocmd("CursorHold", {
+  group = augroup("diagnostic_hover", { clear = true }),
+  callback = function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+  end,
+  desc = "Show diagnostic float when cursor rests on an error",
+})
+
+-- ============================================================================
 -- Git Commit Messages
 -- ============================================================================
 

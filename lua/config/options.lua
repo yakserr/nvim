@@ -3,6 +3,10 @@
 
 local opt = vim.opt
 
+-- Use one mature PHP language server. The Laravel integration also generates
+-- Eloquent helper types specifically understood by Intelephense.
+vim.g.lazyvim_php_lsp = "intelephense"
+
 -- ============================================================================
 -- VSCode-like Comfort Settings
 -- ============================================================================
