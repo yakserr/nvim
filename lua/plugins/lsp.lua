@@ -8,7 +8,7 @@ return {
     },
     servers = {
       vtsls = {},
-      volar = {},
+      vue_ls = {},
     },
     setup = {
       vtsls = function()
@@ -18,8 +18,8 @@ return {
           client.server_capabilities.documentRangeFormattingProvider = false
         end)
       end,
-      volar = function()
-        Snacks.util.lsp.on({ name = "volar" }, function(buffer, client)
+      vue_ls = function()
+        Snacks.util.lsp.on({ name = "vue_ls" }, function(buffer, client)
           -- Delegate formatting to eslint_d
           client.server_capabilities.documentFormattingProvider = false
           client.server_capabilities.documentRangeFormattingProvider = false

@@ -26,8 +26,8 @@ map("n", "J", "mzJ`z", { desc = "Join lines (keep cursor)" })
 -- Better Clipboard Operations
 -- ============================================================================
 
--- Paste without losing register (replace selection without yanking it)
-map("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
+-- Paste over a selection without yanking it: use native `P` in visual mode.
+-- <leader>p belongs to yanky's yank history.
 
 -- Yank to system clipboard
 map({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to clipboard" })
@@ -51,11 +51,6 @@ map("i", "jj", "<Esc>", { desc = "Exit insert mode" })
 -- LSP Enhancements
 -- ============================================================================
 
--- Toggle inlay hints
-map("n", "<leader>uh", function()
-  vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-end, { desc = "Toggle Inlay Hints" })
-
 -- Quick diagnostics
 map("n", "<leader>xl", "<cmd>lopen<cr>", { desc = "Location list" })
 map("n", "<leader>xq", "<cmd>copen<cr>", { desc = "Quickfix list" })
@@ -78,3 +73,7 @@ map("v", ">", ">gv", { desc = "Indent right (stay selected)" })
 -- Add blank lines
 map("n", "]<space>", "o<Esc>k", { desc = "Add blank line below" })
 map("n", "[<space>", "O<Esc>j", { desc = "Add blank line above" })
+
+-- <leader>l is the Laravel prefix; drop LazyVim's <leader>l -> :Lazy so the
+-- group opens instantly. Lazy stays on :Lazy and the dashboard `l`.
+pcall(vim.keymap.del, "n", "<leader>l")

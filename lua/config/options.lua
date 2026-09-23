@@ -16,7 +16,7 @@ opt.scrolloff = 8 -- Keep 8 lines visible above/below cursor
 opt.sidescrolloff = 8 -- Keep 8 columns visible left/right
 
 -- Faster response
-opt.updatetime = 200 -- Faster CursorHold (for LSP diagnostics)
+opt.updatetime = 500 -- CursorHold delay (drives the diagnostic hover float)
 opt.timeoutlen = 300 -- Faster which-key popup
 
 -- Persistent undo (undo even after closing file)

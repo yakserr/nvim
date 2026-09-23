@@ -21,8 +21,6 @@ autocmd("FileType", {
 -- Auto-show diagnostic float on cursor hold (VSCode-like hover)
 -- ============================================================================
 
-vim.o.updatetime = 500
-
 autocmd("CursorHold", {
   group = augroup("diagnostic_hover", { clear = true }),
   callback = function()
@@ -45,35 +43,3 @@ autocmd("FileType", {
   end,
   desc = "Git commit settings",
 })
-
--- ============================================================================
--- Transparent floating windows (terminal, lazy, mason, etc.)
--- ============================================================================
-
-local function clear_float_bg()
-  local groups = {
-    "NormalFloat",
-    "FloatBorder",
-    "FloatTitle",
-    "SnacksNormal",
-    "SnacksNormalNC",
-    "SnacksWinBar",
-    "SnacksWinBarNC",
-    "SnacksBackdrop",
-    "SnacksTerminal",
-    "SnacksTerminalNormal",
-    "SnacksTerminalNormalNC",
-    "SnacksTerminalBorder",
-  }
-  for _, g in ipairs(groups) do
-    vim.api.nvim_set_hl(0, g, { bg = "NONE" })
-  end
-end
-
-autocmd("ColorScheme", {
-  group = augroup("transparent_floats", { clear = true }),
-  callback = clear_float_bg,
-  desc = "Transparent background for floating windows",
-})
-
-clear_float_bg()
